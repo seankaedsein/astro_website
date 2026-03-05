@@ -1,0 +1,13 @@
+---
+const { text = "", class: className = "" } = Astro.props;
+---
+
+<div class:list={["textbody", className]}>
+    {text}
+</div>
+
+<style>
+    .textbody {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+</style>

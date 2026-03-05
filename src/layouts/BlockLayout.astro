@@ -1,0 +1,20 @@
+---
+const { class: className = "" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <div class:list={ ["block", className]}>
+		<slot />
+    </div>
+</html>
+
+<style>
+	.block {
+		display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+        padding: 40px;
+	}
+</style>

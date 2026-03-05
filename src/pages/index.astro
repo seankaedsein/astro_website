@@ -1,0 +1,47 @@
+---
+import "../styles/global.css";
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import TextBlock from '../components/TextBlock.astro';
+import ImageFrame from '../components/ImageFrame.astro';
+import VideoPlayer from "../components/VideoPlayer.astro";
+import MainLayout from '../layouts/MainLayout.astro';
+import BlockLayout from '../layouts/BlockLayout.astro';
+import pic1 from '../assets/pic1.jpg';
+import pic2 from '../assets/pic2.jpg';
+import hero_vid from '../assets/test_vid.mp4';
+
+const texts = import.meta.glob("../assets/text/*.txt", {
+  query: '?raw',
+  import: 'default',
+});
+const loremipsum = texts["../assets/text/loremipsum.txt"];
+---
+
+<MainLayout class="bg-yellow-50">
+	<Header />
+	<BlockLayout>
+		<VideoPlayer src={hero_vid} poster={pic1} autoplay loop muted />
+	</BlockLayout>
+	<BlockLayout>
+		<TextBlock text={loremipsum} />
+		<ImageFrame src={pic1} alt="a landscape view" width={400} height={300} />
+	</BlockLayout>
+	<BlockLayout>
+		<ImageFrame src={pic2} alt="a mountain view" width={400} height={300} />
+		<TextBlock text={loremipsum} />
+	</BlockLayout>
+	<BlockLayout>
+		<ImageFrame src={pic2} alt="a forest view" width={400} height={300} />
+		<TextBlock text={loremipsum} />
+	</BlockLayout>
+	<BlockLayout>
+		<ImageFrame src={pic2} alt="a desert view" width={400} height={300} />
+		<TextBlock text={loremipsum} />
+	</BlockLayout>
+	<BlockLayout>
+		<ImageFrame src={pic2} alt="a beach view" width={400} height={300} />
+		<TextBlock text={loremipsum} />
+	</BlockLayout>
+	<Footer />
+</MainLayout>

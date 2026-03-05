@@ -1,0 +1,37 @@
+---
+type Source = { src: string; type: string };
+
+const {
+  sources = [] as Source[],      // [{src:'/x.mp4', type:'video/mp4'}, ...]
+  src = "",                      // convenience for single-source mp4
+  poster = "",
+  controls = true,
+  autoplay = false,
+  muted = autoplay,
+  loop = autoplay,
+  playsinline = true,
+  preload = "metadata",          // "none" | "metadata" | "auto"
+  class: className = "",
+} = Astro.props;
+
+const normalizedSources: Source[] =
+  sources.length > 0
+    ? sources
+    : src
+      ? [{ src, type: "video/mp4" }]
+      : [];
+---
+
+<video
+  class:list={["block w-full max-w-5xl mx-auto h-auto", className]}
+  poster={poster || undefined}
+  controls={controls}
+  autoplay={autoplay}
+  muted={muted}
+  loop={loop}
+  playsinline={playsinline}
+  preload={preload}
+>
+  {normalizedSources.map((s) => <source src={s.src} type={s.type} />)}
+  Sorry, your browser doesn’t support HTML5 video.
+</video>
