@@ -1,10 +1,12 @@
 ---
+import poster_image from '../assets/logo.png';
+
 type Source = { src: string; type: string };
 
 const {
   sources = [] as Source[],      // [{src:'/x.mp4', type:'video/mp4'}, ...]
   src = "",                      // convenience for single-source mp4
-  poster = "",
+  poster = poster_image,
   controls = true,
   autoplay = false,
   muted = autoplay,
