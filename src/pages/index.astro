@@ -19,30 +19,30 @@ const texts = import.meta.glob("../assets/text/*.txt", {
 const loremipsum = texts["../assets/text/loremipsum.txt"];
 ---
 
-<MainLayout class="bg-yellow-50">
+<MainLayout class="bg-[#276e41]">
 	<Header />
 	<BlockLayout>
 		<VideoPlayer src={hero_vid} poster={pic1} autoplay loop muted />
 	</BlockLayout>
-	<BlockLayout>
-		<TextBlock text={loremipsum} />
+	<BlockLayout id={"section_home"}>
+		<TextBlock text={loremipsum} class="text-[#edefe2]"/>
 		<ImageFrame src={pic1} alt="a landscape view" width={400} height={300} />
 	</BlockLayout>
 	<BlockLayout>
 		<ImageFrame src={pic2} alt="a mountain view" width={400} height={300} />
-		<TextBlock text={loremipsum} />
+		<TextBlock text={loremipsum} class="text-[#edefe2]"/>
 	</BlockLayout>
 	<BlockLayout>
 		<ImageFrame src={pic2} alt="a forest view" width={400} height={300} />
-		<TextBlock text={loremipsum} />
+		<TextBlock text={loremipsum} class="text-[#edefe2]"/>
 	</BlockLayout>
 	<BlockLayout>
 		<ImageFrame src={pic2} alt="a desert view" width={400} height={300} />
-		<TextBlock text={loremipsum} />
+		<TextBlock text={loremipsum} class="text-[#edefe2]"/>
 	</BlockLayout>
 	<BlockLayout>
 		<ImageFrame src={pic2} alt="a beach view" width={400} height={300} />
-		<TextBlock text={loremipsum} />
+		<TextBlock text={loremipsum} class="text-[#edefe2]"/>
 	</BlockLayout>
 	<Footer />
 </MainLayout>

@@ -1,10 +1,10 @@
 ---
-const { class: className = "" } = Astro.props;
+const { class: className = "", id = "" } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-    <div class:list={ ["block", className]}>
+    <div class:list={ ["block", className]} id={id}>
 		<slot />
     </div>
 </html>

@@ -12,12 +12,12 @@ const {
 } = Astro.props;
 
 const baseHeaderClass =
-  "site-header sticky top-0 z-50 w-full transition-transform duration-200 ease-out";
+  "sticky top-0 z-50 w-full";
 ---
 
 <header id="site-header" class:list={[baseHeaderClass, className]}>
   <!-- Background layer -->
-  <div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-lime-800 text-white border-b border-white/10 backdrop-blur supports-[backdrop-filter]:bg-emerald-950/70">
+  <div class="backdrop-blur-xs bg-white/10 mix-blend-exclusion">
     <nav class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-4">
       <!-- Brand -->
       <a href="#section_start" class="flex items-center gap-3 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
@@ -35,8 +35,8 @@ const baseHeaderClass =
       <!-- Links -->
       <div class="flex items-center gap-2 text-sm">
         <a
-          href="#section_start"
-          class="px-3 py-2 rounded-md hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          href="#section_home"
+          class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 mix-blend-exclusion"
         >
           Home
         </a>
@@ -45,7 +45,7 @@ const baseHeaderClass =
 
         <a
           href="#section_about"
-          class="px-3 py-2 rounded-md hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
         >
           About Us
         </a>
@@ -54,7 +54,7 @@ const baseHeaderClass =
 
         <a
           href="#section_contact"
-          class="px-3 py-2 rounded-md hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
         >
           Contact Us
         </a>
@@ -62,58 +62,3 @@ const baseHeaderClass =
     </nav>
   </div>
 </header>
-
-<style>
-  /* Only keep what's truly custom: the hide/show transform */
-  .site-header {
-    transform: translateY(0);
-    will-change: transform;
-  }
-  .site-header.is-hidden {
-    transform: translateY(-100%);
-  }
-</style>
-
-<script is:inline>
-  const header = document.getElementById("site-header");
-  if (!header) console.warn("Header element not found");
-
-  let lastY = window.scrollY;
-  let ticking = false;
-
-  const threshold = 8; // ignore tiny scroll jitter
-  const topLock = 40;   // always show at top
-
-  function update() {
-    ticking = false;
-
-    const y = window.scrollY;
-    const delta = y - lastY;
-
-    // Always show when near the top
-    if (y <= topLock) {
-      header.classList.remove("is-hidden");
-      lastY = y;
-      return;
-    }
-
-    // Ignore small movements (trackpads cause noise)
-    if (Math.abs(delta) < threshold) return;
-
-    if (delta > 0) header.classList.add("is-hidden");     // down -> hide
-    else header.classList.remove("is-hidden");            // up -> show
-
-    lastY = y;
-  }
-
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    },
-    { passive: true }
-  );
-</script>
