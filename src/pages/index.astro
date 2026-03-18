@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import TextBlock from '../components/TextBlock.astro';
 import ImageFrame from '../components/ImageFrame.astro';
 import VideoPlayer from "../components/VideoPlayer.astro";
+import EmailForm from "../components/EmailForm.astro";
 import MainLayout from '../layouts/MainLayout.astro';
 import BlockLayout from '../layouts/BlockLayout.astro';
 import pic1 from '../assets/pic1.jpg';
@@ -43,6 +44,9 @@ const loremipsum = texts["../assets/text/loremipsum.txt"];
 	<BlockLayout>
 		<ImageFrame src={pic2} alt="a beach view" width={400} height={300} />
 		<TextBlock text={loremipsum} class="text-[#edefe2]"/>
+	</BlockLayout>
+	<BlockLayout id={"section_contact"}>
+		<EmailForm />
 	</BlockLayout>
 	<Footer />
 </MainLayout>

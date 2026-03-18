@@ -1,0 +1,130 @@
+---
+const buttonText = "Contact Us";
+---
+
+<button
+  type="button"
+  data-open-contact
+  class="px-4 py-2 rounded-md bg-[#7b8657] text-[#edefe2] font-medium hover:opacity-90"
+>
+  {buttonText}
+</button>
+
+<div
+  data-contact-modal
+  class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4"
+  aria-hidden="true"
+>
+  <div class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl relative">
+    <button
+      type="button"
+      data-close-contact
+      class="absolute right-3 top-3 rounded-md px-2 py-1 text-gray-500 hover:bg-gray-100"
+      aria-label="Close contact form"
+    >
+      ✕
+    </button>
+
+    <form action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
+      <input
+        type="hidden"
+        name="access_key"
+        value="2206bbe6-f1f2-4818-8567-fe04b913d4c1"
+      />
+      <input type="hidden" name="subject" value="New query from the website" />
+      <input type="hidden" name="from_name" value="Website Contact Form" />
+      <input type="checkbox" name="botcheck" class="hidden" style="display:none;" />
+
+      <h2 class="text-xl font-semibold">Submit a query</h2>
+
+      <div>
+        <label for="name" class="mb-1 block font-medium">Name</label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Enter your name"
+          name="name"
+          required
+          class="w-full rounded-md border border-gray-300 px-3 py-2"
+        />
+      </div>
+
+      <div>
+        <label for="email" class="mb-1 block font-medium">Email</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+          name="email"
+          required
+          class="w-full rounded-md border border-gray-300 px-3 py-2"
+        />
+      </div>
+
+      <div>
+        <label for="query" class="mb-1 block font-medium">Query</label>
+        <textarea
+          id="query"
+          placeholder="Enter your query"
+          name="query"
+          required
+          rows="5"
+          class="w-full rounded-md border border-gray-300 px-3 py-2"
+        ></textarea>
+      </div>
+
+      <div class="flex gap-3">
+        <button
+          type="submit"
+          class="rounded-md bg-[#7BD997] px-4 py-2 font-medium text-black hover:opacity-90"
+        >
+          Submit
+        </button>
+
+        <button
+          type="button"
+          data-close-contact
+          class="rounded-md border border-gray-300 px-4 py-2 hover:bg-gray-100"
+        >
+          Close
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const openBtn = document.querySelector("[data-open-contact]");
+  const modal = document.querySelector("[data-contact-modal]");
+  const closeButtons = document.querySelectorAll("[data-close-contact]");
+
+  openBtn?.addEventListener("click", () => {
+    modal?.classList.remove("hidden");
+    modal?.classList.add("flex");
+    modal?.setAttribute("aria-hidden", "false");
+  });
+
+  closeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      modal?.classList.add("hidden");
+      modal?.classList.remove("flex");
+      modal?.setAttribute("aria-hidden", "true");
+    });
+  });
+
+  modal?.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      modal.setAttribute("aria-hidden", "true");
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      modal?.classList.add("hidden");
+      modal?.classList.remove("flex");
+      modal?.setAttribute("aria-hidden", "true");
+    }
+  });
+</script>
