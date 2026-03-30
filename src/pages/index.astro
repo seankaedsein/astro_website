@@ -6,10 +6,15 @@ import TextBlock from '../components/TextBlock.astro';
 import ImageFrame from '../components/ImageFrame.astro';
 import VideoPlayer from "../components/VideoPlayer.astro";
 import EmailForm from "../components/EmailForm.astro";
+import ImageCarousel1 from "../components/ImageCarousel1.astro";
 import MainLayout from '../layouts/MainLayout.astro';
 import BlockLayout from '../layouts/BlockLayout.astro';
 import pic1 from '../assets/pic1.jpg';
 import pic2 from '../assets/pic2.jpg';
+import house1 from '../assets/stock_house_1.jpg';
+import house2 from '../assets/stock_house_2.jpg';
+import house3 from '../assets/stock_house_3.jpg';
+import house4 from '../assets/stock_house_4.jpg';
 //import hero_vid from  '../assets/test_vid.mp4';
 const hero_vid = 'https://pub-e68c95cf3fbb4431b9a993df48ba450c.r2.dev/test_vid.mp4';
 
@@ -24,6 +29,9 @@ const loremipsum = texts["../assets/text/loremipsum.txt"];
 	<Header />
 	<BlockLayout>
 		<VideoPlayer src={hero_vid} poster={pic1} autoplay loop muted />
+	</BlockLayout>
+	<BlockLayout>
+		<ImageCarousel1 images={[house1, house2, house3, house4]} />
 	</BlockLayout>
 	<BlockLayout id={"section_home"}>
 		<TextBlock text={loremipsum} class="text-[#edefe2]"/>
