@@ -1,20 +1,33 @@
 ---
-const { class: className = "", id = "" } = Astro.props;
+const {
+  class: className = "",
+  id = "",
+  padding = "py-6 px-8",
+  width = "w-full",
+  maxWidth = "",
+  centered = true,
+} = Astro.props;
 ---
 
-<!doctype html>
-<html lang="en">
-    <div class:list={ ["block", className]} id={id}>
-		<slot />
-    </div>
-</html>
+<div
+  class:list={[
+    "block",
+    padding,
+    width,
+    maxWidth,
+    centered && "mx-auto",
+    className,
+  ]}
+  id={id}
+>
+  <slot />
+</div>
 
 <style>
-	.block {
-		display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 20px;
-        padding: 40px;
-	}
+  .block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
 </style>

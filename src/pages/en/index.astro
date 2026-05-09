@@ -1,0 +1,117 @@
+---
+import "../../styles/global.css";
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import TextBlock from '../../components/TextBlock.astro';
+import ImageGrid from "../../components/ImageGrid.astro";
+import VideoPlayer from "../../components/VideoPlayer.astro";
+import EmailForm from "../../components/EmailForm.astro";
+import ImageCarousel from "../../components/ImageCarousel.astro";
+import FloatingWhatsApp from "../../components/FloatingWhatsApp.astro";
+
+import MainLayout from '../../layouts/MainLayout.astro';
+import BlockLayout from '../../layouts/BlockLayout.astro';
+
+import {
+	iconImages,
+	layoutImages,
+	locationImages,
+	amenitiesImages,
+} from "../../assets/importAssets";
+
+const hero_vid = 'https://pub-e68c95cf3fbb4431b9a993df48ba450c.r2.dev/test_vid.mp4';
+
+const texts = import.meta.glob("../../assets/text/*.txt", {
+  query: '?raw',
+  import: 'default',
+});
+
+const home_text_1 = texts["../../assets/text/home_en.txt"];
+const home_text_2 = texts["../../assets/text/home2_en.txt"];
+const location_access = texts["../../assets/text/location_access_en.txt"];
+const location_views = texts["../../assets/text/location_views_en.txt"];
+const location_detail = texts["../../assets/text/location_detail_en.txt"];
+const amenities_text = texts["../../assets/text/amenities_en.txt"];
+const contact_text = texts["../../assets/text/contact_en.txt"];
+---
+
+<MainLayout class="bg-[#3b5d4a]">
+	<Header />
+	<FloatingWhatsApp />
+	<!--<BlockLayout>
+		<VideoPlayer src={hero_vid} poster={pic1} autoplay loop muted />  #2f3137  #3b4c6d  #21403b  #d1d8e6
+	</BlockLayout>-->
+	<div class="bg-[url('../assets/images/hero_image.jpg')] bg-black/50 bg-blend-multiply bg-cover bg-center">
+		<BlockLayout id={"section_home"} class="pt-30 justify-center">
+			<TextBlock text={home_text_1} class="text-[#eef2f7] text-7xl font-bold text-center"/>
+			<!--<ImageFrame src={pic1} alt="a landscape view" width={400} height={300} />-->
+		</BlockLayout>
+		<BlockLayout padding="py-20 px-8" class="justify-center">
+			<TextBlock text={home_text_2} class="text-slate-300 text-3xl top-0 text-center"/>
+		</BlockLayout>
+	</div>
+
+	<BlockLayout id={"section_location"} padding="py-4 px-8" maxWidth="max-w-[1600px]" class="pt-20 justify-center">
+		<TextBlock text={location_access} class="text-[#eef2f7] text-7xl font-bold text-center"/>
+	</BlockLayout>
+	<BlockLayout padding="py-4 px-8" maxWidth="max-w-[1600px]" class="justify-center">
+		<iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d75497.36198543786!2d116.6345890301215!3d6.0165131548967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMDEnMDkuMCJOIDExNsKwMzgnMzAuNSJF!5e0!3m2!1sen!2smy!4v1774964052421!5m2!1sen!2smy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+		<ImageCarousel	images={[layoutImages[0], layoutImages[1], layoutImages[2], layoutImages[3]]}
+						titles={["Aerial View with Marked Zones", "Zones with Access Roads", "Aerial View", "Aerial View Zoomed"]}
+						class="w-1/2 h-auto" arrowClass="border-white/50 text-white/50"/>
+	</BlockLayout>
+	<BlockLayout padding="py-12 px-8" maxWidth="max-w-[1600px]" class="justify-center">
+		<TextBlock text={location_detail} class="text-[#eef2f7] text-2xl text-center"/>
+	</BlockLayout>
+
+	
+	<BlockLayout id={"section_views"} padding="py-4 px-8" maxWidth="max-w-[1600px]" class="pt-20 bg-[#d2e4d6] justify-center">
+		<TextBlock text={location_views} class="text-[#394b40] text-7xl font-bold text-center"/>
+	</BlockLayout>
+	<BlockLayout padding="py-12 px-8" maxWidth="max-w-[1600px]" class="bg-[#d2e4d6] justify-center">
+		<ImageGrid images={locationImages} class="w-full h-auto" cols={3} mdCols={3} lgCols={3}/>
+	</BlockLayout>
+
+
+	<BlockLayout id={"section_amenities"} padding="py-4 px-8" maxWidth="max-w-[1600px]" class="pt-20 justify-center">
+		<TextBlock text={amenities_text} class="text-[#eef2f7] text-7xl font-bold text-center"/>
+	</BlockLayout>
+	<BlockLayout maxWidth="max-w-[1600px]" class="justify-center">
+		<ImageGrid images={amenitiesImages}
+					captions={["Mount Kinabalu", "Kipungit Waterfall", "Poring Spring", "Mesilau Golf Course", "Desa Dairy", "Ausvilla", "H. Benjamin", "The Clover", "ATV Rental", "Camel Trophy Track"]}
+					class="w-full h-auto" cols={3} mdCols={3} lgCols={3}/>
+	</BlockLayout>
+
+
+	<BlockLayout id="section_contact" padding="py-4 px-8" maxWidth="max-w-[1600px]" class="pt-20 bg-[#b4dbc4] justify-center">
+		<TextBlock text={contact_text} class="text-[#394b40] text-9xl font-bold text-center"/>
+	</BlockLayout>
+	<BlockLayout padding="py-6 px-6" maxWidth="max-w-[1600px]" class="bg-[#b4dbc4] justify-center">
+		<div class="flex w-full max-w-3xl flex-col items-center justify-center space-y-12">
+			<a
+			href="tel:+60172508991"
+			class="flex w-full items-center justify-center gap-4 text-6xl text-gray-800 hover:text-[#3b5d4a]"
+			>
+			<img src={iconImages.phone_icon.src} alt="" class="h-20 w-20" />
+			<span>+60 17-250 8991</span>
+			</a>
+
+			<a
+			href="https://wa.me/60167852982"
+			class="flex w-full items-center justify-center gap-4 text-6xl text-gray-800 hover:text-[#3b5d4a]"
+			>
+			<img src={iconImages.whatsapp_icon.src} alt="" class="h-20 w-20" />
+			<span>WhatsApp</span>
+			</a>
+
+			<EmailForm
+			buttonText="Contact Form"
+			icon={iconImages.email_icon}
+			/>
+		</div>
+		</BlockLayout>
+
+	<BlockLayout padding="py-3 px-6" maxWidth="max-w-[1600px]" class="bg-[#b4dbc4] justify-center">
+		<Footer />
+	</BlockLayout>
+</MainLayout>

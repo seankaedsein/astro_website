@@ -8,6 +8,14 @@ const {
   width = 50,
   height = 30,
   class: className = "",
+  currentLanguage = "en",
+  labels = {
+    home: "Home",
+    location: "Location",
+    views: "Property Views",
+    amenities: "Amenities",
+    contact: "Contact Us",
+  },
   ...rest
 } = Astro.props;
 
@@ -17,37 +25,47 @@ const baseHeaderClass =
 
 <header id="site-header" class:list={[baseHeaderClass, className]}>
   <!-- Background layer -->
-  <div class="backdrop-blur-xs bg-white/10 mix-blend-exclusion">
+  <div class="bg-[#3b5d4a]">
     <nav class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-4">
       <!-- Brand -->
-      <a href="#section_start" class="flex items-center gap-3 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-        <Image
-          src={src}
-          layout="constrained"
-          alt={alt}
-          width={width}
-          height={height}
-          {...rest}
-        />
-        <span class="sr-only">Home</span>
+      <a href="#section_home" class="flex items-center gap-3 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+        <span class="text-xl font-bold text-gray-300 hover:text-gray-100">Agong Monarchy Land</span>
       </a>
 
       <!-- Links -->
-      <div class="flex items-center gap-2 text-sm">
+      <div class="flex items-center gap-2 text-lg">
         <a
           href="#section_home"
-          class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 mix-blend-exclusion"
+          class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
         >
-          Home
+          {labels.home}
         </a>
 
         <span aria-hidden="true" class="hidden sm:inline text-white/40">|</span>
 
         <a
-          href="#section_about"
+          href="#section_location"
           class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
         >
-          About Us
+          {labels.location}
+        </a>
+
+        <span aria-hidden="true" class="hidden sm:inline text-white/40">|</span>
+
+        <a
+          href="#section_views"
+          class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+        >
+          {labels.views}
+        </a>
+
+        <span aria-hidden="true" class="hidden sm:inline text-white/40">|</span>
+
+        <a
+          href="#section_amenities"
+          class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+        >
+          {labels.amenities}
         </a>
 
         <span aria-hidden="true" class="hidden sm:inline text-white/40">|</span>
@@ -56,8 +74,19 @@ const baseHeaderClass =
           href="#section_contact"
           class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
         >
-          Contact Us
+          {labels.contact}
         </a>
+        <span aria-hidden="true" class="hidden sm:inline text-white/40">|</span>
+
+        <select
+          aria-label="Select language"
+          class="rounded-md bg-white/10 px-3 py-2 text-gray-300 outline-none hover:bg-white/20 focus:ring-2 focus:ring-white/60"
+          onchange="window.location.href = this.value"
+        >
+          <option value="/astro_website/en/" selected={currentLanguage === "en"}>English</option>
+          <option value="/astro_website/ms/" selected={currentLanguage === "ms"}>Bahasa Malaysia</option>
+          <option value="/astro_website/cn/" selected={currentLanguage === "cn"}>中文</option>
+        </select>
       </div>
     </nav>
   </div>

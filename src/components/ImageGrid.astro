@@ -1,0 +1,282 @@
+---
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  images: ImageMetadata[];
+  titles?: string[];
+  captions?: string[];
+  cols?: number;
+  mdCols?: number;
+  lgCols?: number;
+  gap?: string;
+  aspect?: string;
+  class?: string;
+}
+
+const {
+  images,
+  titles = [],
+  captions = [],
+  cols = 2,
+  mdCols = 3,
+  lgCols = 4,
+  gap = "gap-4",
+  aspect = "aspect-[4/3]",
+  class: className = "",
+} = Astro.props;
+
+const widthMap = {
+  1: "basis-full",
+  2: "basis-[calc(50%-0.5rem)]",
+  3: "basis-[calc(33.333%-0.75rem)]",
+  4: "basis-[calc(25%-0.75rem)]",
+};
+
+const imageUrls = images.map((img) => img.src);
+---
+
+<div class="image-grid-root">
+  <div class:list={["flex flex-wrap justify-center", gap, className]}>
+    {images.map((img, i) => (
+      <figure
+        class:list={[
+          "m-0 shrink-0",
+          widthMap[cols as keyof typeof widthMap] || "basis-[calc(50%-0.5rem)]",
+          `md:${widthMap[mdCols as keyof typeof widthMap] || "basis-[calc(33.333%-0.75rem)]"}`,
+          `lg:${widthMap[lgCols as keyof typeof widthMap] || "basis-[calc(25%-0.75rem)]"}`,
+        ]}
+      >
+        <button
+          type="button"
+          class="group relative block w-full overflow-hidden rounded-lg text-left"
+          data-grid-image
+          data-index={i}
+          aria-label={`Open image ${i + 1}`}
+        >
+          <div class:list={[aspect, "w-full overflow-hidden rounded-lg"]}>
+            <img
+              src={img.src}
+              alt={titles[i] || captions[i] || `Image ${i + 1}`}
+              class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
+
+          {titles[i] && (
+            <div class="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <p class="p-3 text-sm text-white">
+                {titles[i]}
+              </p>
+            </div>
+          )}
+        </button>
+
+        {captions[i] && (
+          <figcaption class="mt-2 text-center text-sm text-gray-600">
+            {captions[i]}
+          </figcaption>
+        )}
+      </figure>
+    ))}
+  </div>
+
+  <div
+    class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 p-4"
+    data-lightbox
+    aria-hidden="true"
+  >
+    <div class="relative flex h-full w-full max-w-[92vw] flex-col items-center justify-center">
+      <button
+        type="button"
+        class="absolute right-0 top-0 z-30 rounded-md bg-white/10 px-3 py-2 text-white backdrop-blur transition hover:bg-white/20"
+        data-lightbox-close
+        aria-label="Close image viewer"
+      >
+        ✕
+      </button>
+
+      <div
+        class="absolute left-0 top-0 z-20 rounded-md bg-white/10 px-3 py-1 text-sm text-white/90 backdrop-blur"
+        data-lightbox-counter
+      >
+        1 / 1
+      </div>
+
+      <button
+        type="button"
+        class="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-md bg-white/10 px-3 py-2 text-white backdrop-blur transition hover:bg-white/20 md:left-4"
+        data-lightbox-prev
+        aria-label="Previous image"
+      >
+        ‹
+      </button>
+
+      <figure class="m-0 flex max-h-full w-full flex-col items-center justify-center">
+        <div class="flex min-h-[65vh] w-full items-center justify-center overflow-hidden">
+          <img
+            src=""
+            alt=""
+            class="max-h-[82vh] max-w-full rounded-lg object-contain shadow-2xl opacity-100 transition-opacity duration-300"
+            data-lightbox-image
+          />
+        </div>
+
+        <figcaption
+          class="mt-4 text-center text-sm text-white/90"
+          data-lightbox-caption
+        ></figcaption>
+      </figure>
+
+      <button
+        type="button"
+        class="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-md bg-white/10 px-3 py-2 text-white backdrop-blur transition hover:bg-white/20 md:right-4"
+        data-lightbox-next
+        aria-label="Next image"
+      >
+        ›
+      </button>
+
+      <div
+        class="mt-6 flex max-w-full gap-3 overflow-x-auto px-2 pb-2"
+        data-lightbox-thumbs
+      >
+        {images.map((img, i) => (
+          <button
+            type="button"
+            class="shrink-0 overflow-hidden rounded-md border-2 border-transparent transition hover:opacity-90"
+            data-lightbox-thumb
+            data-index={i}
+            aria-label={`View thumbnail ${i + 1}`}
+          >
+            <img
+              src={img.src}
+              alt={titles[i] || captions[i] || `Thumbnail ${i + 1}`}
+              class="h-16 w-24 object-cover"
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ imageUrls, titles, captions }}>
+  const root = document.currentScript?.previousElementSibling;
+  if (!root) return;
+
+  const imageButtons = root.querySelectorAll("[data-grid-image]");
+  const lightbox = root.querySelector("[data-lightbox]");
+  const lightboxImg = root.querySelector("[data-lightbox-image]");
+  const lightboxCaption = root.querySelector("[data-lightbox-caption]");
+  const lightboxCounter = root.querySelector("[data-lightbox-counter]");
+  const closeBtn = root.querySelector("[data-lightbox-close]");
+  const prevBtn = root.querySelector("[data-lightbox-prev]");
+  const nextBtn = root.querySelector("[data-lightbox-next]");
+  const thumbButtons = root.querySelectorAll("[data-lightbox-thumb]");
+
+  let currentIndex = 0;
+  let isAnimating = false;
+
+  function updateThumbs() {
+    thumbButtons.forEach((btn, index) => {
+      if (index === currentIndex) {
+        btn.classList.add("border-white");
+        btn.classList.remove("border-transparent");
+      } else {
+        btn.classList.remove("border-white");
+        btn.classList.add("border-transparent");
+      }
+    });
+  }
+
+  function renderLightbox() {
+    if (!lightboxImg || !lightboxCaption || !lightboxCounter) return;
+
+    lightboxImg.src = imageUrls[currentIndex];
+    lightboxImg.alt = titles[currentIndex] || captions[currentIndex] || `Image ${currentIndex + 1}`;
+    lightboxCaption.textContent = captions[currentIndex] || titles[currentIndex] || "";
+    lightboxCounter.textContent = `${currentIndex + 1} / ${imageUrls.length}`;
+    updateThumbs();
+  }
+
+  function fadeToImage(index) {
+    if (!lightboxImg || isAnimating) return;
+    isAnimating = true;
+
+    lightboxImg.classList.add("opacity-0");
+
+    window.setTimeout(() => {
+      currentIndex = index;
+      renderLightbox();
+      lightboxImg.classList.remove("opacity-0");
+
+      window.setTimeout(() => {
+        isAnimating = false;
+      }, 300);
+    }, 150);
+  }
+
+  function openLightbox(index) {
+    if (!lightbox) return;
+
+    currentIndex = index;
+    renderLightbox();
+    lightbox.classList.remove("hidden");
+    lightbox.classList.add("flex");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+
+    lightbox.classList.add("hidden");
+    lightbox.classList.remove("flex");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  function showPrev() {
+    const nextIndex = (currentIndex - 1 + imageUrls.length) % imageUrls.length;
+    fadeToImage(nextIndex);
+  }
+
+  function showNext() {
+    const nextIndex = (currentIndex + 1) % imageUrls.length;
+    fadeToImage(nextIndex);
+  }
+
+  imageButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const index = Number(button.getAttribute("data-index") || "0");
+      openLightbox(index);
+    });
+  });
+
+  thumbButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const index = Number(button.getAttribute("data-index") || "0");
+
+      if (index !== currentIndex) {
+        fadeToImage(index);
+      }
+    });
+  });
+
+  closeBtn?.addEventListener("click", closeLightbox);
+  prevBtn?.addEventListener("click", showPrev);
+  nextBtn?.addEventListener("click", showNext);
+
+  lightbox?.addEventListener("click", (event) => {
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!lightbox || lightbox.classList.contains("hidden")) return;
+
+    if (event.key === "Escape") closeLightbox();
+    if (event.key === "ArrowLeft") showPrev();
+    if (event.key === "ArrowRight") showNext();
+  });
+</script>

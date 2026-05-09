@@ -7,10 +7,13 @@ const { class: className = "" } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/astro_website/favicon.svg" />
-		<link rel="icon" href="/astro_website/favicon.ico" />
+		<!-- <link rel="icon" type="image/svg+xml" href="/astro_website/favicon.svg" />
+		<link rel="icon" href="/astro_website/favicon.ico" /> -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Agong Monarchy Land</title>
 	</head>
 	<body class:list={ ["main-layout", className]}>
 		<slot />
@@ -21,5 +24,6 @@ const { class: className = "" } = Astro.props;
 	html,
 	body {
 		margin: 0;
+		font-family: "Inter", Arial, Helvetica, sans-serif;
 	}
 </style>

@@ -8,5 +8,5 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   site: "https://seankaedsein.github.io",
-  base: "/astro_website"
+  base: "/astro_website/"
 });

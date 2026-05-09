@@ -1,0 +1,118 @@
+---
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  backgroundColor?: string;
+  images: ImageMetadata[];
+  titles?: string[];
+  attributions?: string[];
+  class?: string;
+  arrowClass?: string;
+  textClass?: string;
+  attributionClass?: string;
+}
+
+const {
+  backgroundColor,
+  images,
+  titles,
+  attributions,
+  class: className,
+  arrowClass: arrowClassName,
+  textClass: textClassName,
+  attributionClass: attributionClassName,
+} = Astro.props;
+
+const galleryLength = images.length;
+---
+
+<div
+  class:list={["relative", className]}
+  style={`background-color: ${backgroundColor || "transparent"}`}
+>
+  <button
+    type="button"
+    data-carousel-left
+    class:list={[
+      "absolute left-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-2xl text-white shadow-lg backdrop-blur transition hover:bg-black/65 focus:outline-none focus:ring-2 focus:ring-white/70",
+      arrowClassName,
+    ]}
+    aria-label="Previous image"
+  >
+    ‹
+  </button>
+
+  <div class="relative w-full overflow-hidden">
+    <div
+      data-carousel-track
+      class="flex transition-transform duration-300 ease-in-out"
+      style="transform: translateX(0%);"
+    >
+      {images.map((image, index) => (
+        <div class="w-full shrink-0">
+          <div class="relative group overflow-hidden h-[500px] flex items-center justify-center">
+            <img
+              src={image.src}
+              alt={`Slide ${index + 1}`}
+              class="max-h-full w-full object-contain"
+            />
+
+            {(titles?.[index] || attributions?.[index]) && (
+              <div class="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div class="p-4 text-white">
+                  {titles?.[index] && (
+                    <p class:list={["text-sm font-medium", textClassName]}>
+                      {titles[index]}
+                    </p>
+                  )}
+
+                  {attributions?.[index] && (
+                    <p class:list={["mt-1 text-xs text-white/80", attributionClassName]}>
+                      {attributions[index]}
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <button
+    type="button"
+    data-carousel-right
+    class:list={[
+      "absolute right-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-2xl text-white shadow-lg backdrop-blur transition hover:bg-black/65 focus:outline-none focus:ring-2 focus:ring-white/70",
+      arrowClassName,
+    ]}
+    aria-label="Next image"
+  >
+    ›
+  </button>
+</div>
+
+<script define:vars={{ galleryLength }}>
+  const root = document.currentScript?.previousElementSibling;
+  const leftBtn = root?.querySelector("[data-carousel-left]");
+  const rightBtn = root?.querySelector("[data-carousel-right]");
+  const track = root?.querySelector("[data-carousel-track]");
+
+  let currentIndex = 0;
+
+  function updateCarousel() {
+    if (!track) return;
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  leftBtn?.addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + galleryLength) % galleryLength;
+    updateCarousel();
+  });
+
+  rightBtn?.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % galleryLength;
+    updateCarousel();
+  });
+</script>
