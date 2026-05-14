@@ -32,62 +32,143 @@ const baseHeaderClass =
         <span class="text-xl font-bold text-gray-300 hover:text-gray-100">Agong Monarchy Land</span>
       </a>
 
-      <!-- Links -->
-      <div class="flex items-center gap-2 text-lg">
+      <!-- Desktop Links -->
+      <div class="hidden items-center gap-2 text-lg md:flex">
         <a
           href="#section_home"
-          class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          class="rounded-md px-3 py-2 text-gray-300 hover:bg-white/10"
         >
           {labels.home}
         </a>
 
-        <span aria-hidden="true" class="hidden sm:inline text-white/40">|</span>
+        <span aria-hidden="true" class="text-white/40">|</span>
 
         <a
           href="#section_location"
-          class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          class="rounded-md px-3 py-2 text-gray-300 hover:bg-white/10"
         >
           {labels.location}
         </a>
 
-        <span aria-hidden="true" class="hidden sm:inline text-white/40">|</span>
+        <span aria-hidden="true" class="text-white/40">|</span>
 
         <a
           href="#section_views"
-          class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          class="rounded-md px-3 py-2 text-gray-300 hover:bg-white/10"
         >
           {labels.views}
         </a>
 
-        <span aria-hidden="true" class="hidden sm:inline text-white/40">|</span>
+        <span aria-hidden="true" class="text-white/40">|</span>
 
         <a
           href="#section_amenities"
-          class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          class="rounded-md px-3 py-2 text-gray-300 hover:bg-white/10"
         >
           {labels.amenities}
         </a>
 
-        <span aria-hidden="true" class="hidden sm:inline text-white/40">|</span>
+        <span aria-hidden="true" class="text-white/40">|</span>
 
         <a
           href="#section_contact"
-          class="px-3 py-2 rounded-md text-gray-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          class="rounded-md px-3 py-2 text-gray-300 hover:bg-white/10"
         >
           {labels.contact}
         </a>
-        <span aria-hidden="true" class="hidden sm:inline text-white/40">|</span>
+
+        <span aria-hidden="true" class="text-white/40">|</span>
 
         <select
           aria-label="Select language"
-          class="rounded-md bg-white/10 px-3 py-2 text-gray-300 outline-none hover:bg-white/20 focus:ring-2 focus:ring-white/60"
+          class="rounded-md bg-white/10 px-3 py-2 text-gray-300 outline-none hover:bg-white/20"
           onchange="window.location.href = this.value"
         >
-          <option value="/astro_website/en/" selected={currentLanguage === "en"}>English</option>
-          <option value="/astro_website/ms/" selected={currentLanguage === "ms"}>Bahasa Malaysia</option>
-          <option value="/astro_website/cn/" selected={currentLanguage === "cn"}>中文</option>
+          <option value="/astro_website/en/" selected={currentLanguage === "en"}>
+            English
+          </option>
+
+          <option value="/astro_website/ms/" selected={currentLanguage === "ms"}>
+            Bahasa Malaysia
+          </option>
+
+          <option value="/astro_website/cn/" selected={currentLanguage === "cn"}>
+            中文
+          </option>
         </select>
       </div>
+
+      <!-- Mobile Hamburger -->
+      <button
+        id="mobile-menu-button"
+        class="rounded-md p-2 text-gray-300 hover:bg-white/10 md:hidden"
+        aria-label="Open menu"
+      >
+        ☰
+      </button>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="hidden flex-col gap-2 bg-[#3b5d4a] px-4 pb-4 md:hidden"
+    >
+      <a href="#section_home" class="rounded-md px-3 py-2 text-gray-300 hover:bg-white/10">
+        {labels.home}
+      </a>
+
+      <a href="#section_location" class="rounded-md px-3 py-2 text-gray-300 hover:bg-white/10">
+        {labels.location}
+      </a>
+
+      <a href="#section_views" class="rounded-md px-3 py-2 text-gray-300 hover:bg-white/10">
+        {labels.views}
+      </a>
+
+      <a href="#section_amenities" class="rounded-md px-3 py-2 text-gray-300 hover:bg-white/10">
+        {labels.amenities}
+      </a>
+
+      <a href="#section_contact" class="rounded-md px-3 py-2 text-gray-300 hover:bg-white/10">
+        {labels.contact}
+      </a>
+
+      <select
+        aria-label="Select language"
+        class="rounded-md bg-white/10 px-3 py-2 text-gray-300 outline-none"
+        onchange="window.location.href = this.value"
+      >
+        <option value="/astro_website/en/" selected={currentLanguage === "en"}>
+          English
+        </option>
+
+        <option value="/astro_website/ms/" selected={currentLanguage === "ms"}>
+          Bahasa Malaysia
+        </option>
+
+        <option value="/astro_website/cn/" selected={currentLanguage === "cn"}>
+          中文
+        </option>
+      </select>
+    </div>
   </div>
 </header>
+
+<script>
+  const button = document.getElementById("mobile-menu-button");
+  const menu = document.getElementById("mobile-menu");
+
+  button?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+    menu?.classList.toggle("flex");
+  });
+
+  const mobileLinks = menu?.querySelectorAll("a");
+
+  mobileLinks?.forEach((link) => {
+    link.addEventListener("click", () => {
+      menu?.classList.add("hidden");
+      menu?.classList.remove("flex");
+    });
+  });
+</script>

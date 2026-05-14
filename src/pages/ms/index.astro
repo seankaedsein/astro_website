@@ -47,66 +47,90 @@ const contact_text = texts["../../assets/text/contact_ms.txt"];
 	<!--<BlockLayout>
 		<VideoPlayer src={hero_vid} poster={pic1} autoplay loop muted />  #2f3137  #3b4c6d  #21403b  #d1d8e6
 	</BlockLayout>-->
+
 	<div class="bg-[url('../assets/images/hero_image.jpg')] bg-black/50 bg-blend-multiply bg-cover bg-center">
 		<BlockLayout id={"section_home"} class="pt-30 justify-center">
-			<TextBlock text={home_text_1} class="text-[#eef2f7] text-7xl font-bold text-center"/>
+			<TextBlock text={home_text_1} class="text-[#eef2f7] text-4xl md:text-6xl lg:text-7xl font-bold text-center"/>
 			<!--<ImageFrame src={pic1} alt="a landscape view" width={400} height={300} />-->
 		</BlockLayout>
 		<BlockLayout padding="py-20 px-8" class="justify-center">
-			<TextBlock text={home_text_2} class="text-slate-300 text-3xl top-0 text-center"/>
+			<TextBlock text={home_text_2} class="text-slate-300 text-lg md:text-2xl lg:text-3xl top-0 text-center"/>
 		</BlockLayout>
 	</div>
 
 	<BlockLayout id={"section_location"} padding="py-4 px-8" maxWidth="max-w-[1600px]" class="pt-20 justify-center">
-		<TextBlock text={location_access} class="text-[#eef2f7] text-7xl font-bold text-center"/>
-	</BlockLayout>
-	<BlockLayout padding="py-4 px-8" maxWidth="max-w-[1600px]" class="justify-center">
-		<iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d75497.36198543786!2d116.6345890301215!3d6.0165131548967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMDEnMDkuMCJOIDExNsKwMzgnMzAuNSJF!5e0!3m2!1sen!2smy!4v1774964052421!5m2!1sen!2smy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-		<ImageCarousel	images={[layoutImages[0], layoutImages[1], layoutImages[2], layoutImages[3]]}
-						titles={["Aerial View with Marked Zones", "Zones with Access Roads", "Aerial View", "Aerial View Zoomed"]}
-						class="w-1/2 h-auto" arrowClass="border-white/50 text-white/50"/>
-	</BlockLayout>
-	<BlockLayout padding="py-12 px-8" maxWidth="max-w-[1600px]" class="justify-center">
-		<TextBlock text={location_detail} class="text-[#eef2f7] text-2xl text-center"/>
+		<TextBlock text={location_access} class="text-[#eef2f7] text-4xl md:text-6xl lg:text-7xl font-bold text-center"/>
 	</BlockLayout>
 
+	<BlockLayout
+		padding="py-4 px-4 md:px-8"
+		maxWidth="max-w-[1600px]"
+		class="justify-center"
+		>
+		<div class="flex w-full flex-col items-center gap-6 md:flex-row">
+			<iframe
+			src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d75497.36198543786!2d116.6345890301215!3d6.0165131548967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMDEnMDkuMCJOIDExNsKwMzgnMzAuNSJF!5e0!3m2!1sen!2smy!4v1774964052421!5m2!1sen!2smy"
+			class="h-[300px] w-full rounded-xl md:h-[450px] md:w-1/2"
+			style="border:0;"
+			allowfullscreen=""
+			loading="lazy"
+			referrerpolicy="no-referrer-when-downgrade"
+			></iframe>
+
+			<ImageCarousel
+			images={[layoutImages[0], layoutImages[1], layoutImages[2], layoutImages[3]]}
+			titles={[
+				"Aerial View with Marked Zones",
+				"Zones with Access Roads",
+				"Aerial View",
+				"Aerial View Zoomed"
+			]}
+			class="w-full md:w-1/2"
+			arrowClass="border-white/50 text-white/50"
+			/>
+		</div>
+	</BlockLayout>
+
+	<BlockLayout padding="py-8 px-4 md:py-12 md:px-8" maxWidth="max-w-[1600px]" class="justify-center">
+		<TextBlock text={location_detail} class="text-[#eef2f7] text-2xl text-center"/>
+	</BlockLayout>
 	
 	<BlockLayout id={"section_views"} padding="py-4 px-8" maxWidth="max-w-[1600px]" class="pt-20 bg-[#d2e4d6] justify-center">
-		<TextBlock text={location_views} class="text-[#394b40] text-7xl font-bold text-center"/>
+		<TextBlock text={location_views} class="text-[#394b40] text-4xl md:text-6xl lg:text-7xl font-bold text-center"/>
 	</BlockLayout>
-	<BlockLayout padding="py-12 px-8" maxWidth="max-w-[1600px]" class="bg-[#d2e4d6] justify-center">
-		<ImageGrid images={locationImages} class="w-full h-auto" cols={3} mdCols={3} lgCols={3}/>
+	<BlockLayout padding="py-8 px-4 md:py-12 md:px-8" maxWidth="max-w-[1600px]" class="bg-[#d2e4d6] justify-center">
+		<ImageGrid images={locationImages} class="w-full h-auto" cols={1} mdCols={2} lgCols={3}/>
 	</BlockLayout>
 
 
 	<BlockLayout id={"section_amenities"} padding="py-4 px-8" maxWidth="max-w-[1600px]" class="pt-20 justify-center">
-		<TextBlock text={amenities_text} class="text-[#eef2f7] text-7xl font-bold text-center"/>
+		<TextBlock text={amenities_text} class="text-[#eef2f7] text-4xl md:text-6xl lg:text-7xl font-bold text-center"/>
 	</BlockLayout>
-	<BlockLayout maxWidth="max-w-[1600px]" class="justify-center">
+	<BlockLayout padding="py-8 px-4 md:py-12 md:px-8" maxWidth="max-w-[1600px]" class="justify-center">
 		<ImageGrid images={amenitiesImages}
 					captions={["Mount Kinabalu", "Kipungit Waterfall", "Poring Spring", "Mesilau Golf Course", "Desa Dairy", "Ausvilla", "H. Benjamin", "The Clover", "ATV Rental", "Camel Trophy Track"]}
-					class="w-full h-auto" cols={3} mdCols={3} lgCols={3}/>
+					class="w-full h-auto" cols={1} mdCols={2} lgCols={3}/>
 	</BlockLayout>
 
 
 	<BlockLayout id="section_contact" padding="py-4 px-8" maxWidth="max-w-[1600px]" class="pt-20 bg-[#b4dbc4] justify-center">
-		<TextBlock text={contact_text} class="text-[#394b40] text-9xl font-bold text-center"/>
+		<TextBlock text={contact_text} class="text-[#394b40] text-5xl md:text-7xl lg:text-9xl font-bold text-center"/>
 	</BlockLayout>
 	<BlockLayout padding="py-6 px-6" maxWidth="max-w-[1600px]" class="bg-[#b4dbc4] justify-center">
 		<div class="flex w-full max-w-3xl flex-col items-center justify-center space-y-12">
 			<a
 			href="tel:+60172508991"
-			class="flex w-full items-center justify-center gap-4 text-6xl text-gray-800 hover:text-[#3b5d4a]"
+			class="flex w-full items-center justify-center gap-4 text-2xl md:gap-4 md:text-4xl lg:text-6xl text-gray-800 hover:text-[#3b5d4a]"
 			>
-			<img src={iconImages.phone_icon.src} alt="" class="h-20 w-20" />
+			<img src={iconImages.phone_icon.src} alt="" class="h-10 w-10 md:h-16 md:w-16 lg:h-20 lg:w-20" />
 			<span>+60 17-250 8991</span>
 			</a>
 
 			<a
 			href="https://wa.me/60167852982"
-			class="flex w-full items-center justify-center gap-4 text-6xl text-gray-800 hover:text-[#3b5d4a]"
+			class="flex w-full items-center justify-center gap-4 text-2xl md:gap-4 md:text-4xl lg:text-6xl text-gray-800 hover:text-[#3b5d4a]"
 			>
-			<img src={iconImages.whatsapp_icon.src} alt="" class="h-20 w-20" />
+			<img src={iconImages.whatsapp_icon.src} alt="" class="h-10 w-10 md:h-16 md:w-16 lg:h-20 lg:w-20" />
 			<span>WhatsApp</span>
 			</a>
 
