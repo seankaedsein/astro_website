@@ -32,6 +32,20 @@ const widthMap = {
   4: "basis-[calc(25%-0.75rem)]",
 };
 
+const mdWidthMap = {
+  1: "md:basis-full",
+  2: "md:basis-[calc(50%-0.5rem)]",
+  3: "md:basis-[calc(33.333%-0.75rem)]",
+  4: "md:basis-[calc(25%-0.75rem)]",
+};
+
+const lgWidthMap = {
+  1: "lg:basis-full",
+  2: "lg:basis-[calc(50%-0.5rem)]",
+  3: "lg:basis-[calc(33.333%-0.75rem)]",
+  4: "lg:basis-[calc(25%-0.75rem)]",
+};
+
 const imageUrls = images.map((img) => img.src);
 ---
 
@@ -41,9 +55,9 @@ const imageUrls = images.map((img) => img.src);
       <figure
         class:list={[
           "m-0 shrink-0",
-          widthMap[cols as keyof typeof widthMap] || "basis-[calc(50%-0.5rem)]",
-          `md:${widthMap[mdCols as keyof typeof widthMap] || "basis-[calc(33.333%-0.75rem)]"}`,
-          `lg:${widthMap[lgCols as keyof typeof widthMap] || "basis-[calc(25%-0.75rem)]"}`,
+          widthMap[cols as keyof typeof widthMap] || "basis-full",
+          mdWidthMap[mdCols as keyof typeof mdWidthMap] || "md:basis-[calc(50%-0.5rem)]",
+          lgWidthMap[lgCols as keyof typeof lgWidthMap] || "lg:basis-[calc(33.333%-0.75rem)]",
         ]}
       >
         <button
