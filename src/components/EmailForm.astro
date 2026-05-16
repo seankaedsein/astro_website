@@ -1,10 +1,11 @@
 ---
 const { class: className = "" } = Astro.props;
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY;
 ---
 
 <div class:list={["w-full rounded-xl bg-white p-10 shadow-xl", className]}>
   <form action="https://api.web3forms.com/submit" method="POST" class="space-y-8">
-    <input type="hidden" name="access_key" value="2206bbe6-f1f2-4818-8567-fe04b913d4c1" />
+    <input type="hidden" name="access_key" value={accessKey} />
     <input type="hidden" name="subject" value="New query from the website" />
     <input type="hidden" name="from_name" value="Website Contact Form" />
     <input type="checkbox" name="botcheck" class="hidden" style="display:none;" />

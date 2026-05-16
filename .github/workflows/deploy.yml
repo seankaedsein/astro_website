@@ -38,6 +38,8 @@ jobs:
 
       - name: Build site
         run: bun run build
+        env: 
+          PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ secrets.PUBLIC_WEB3FORMS_ACCESS_KEY }}
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
